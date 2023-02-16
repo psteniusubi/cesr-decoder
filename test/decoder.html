@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style type="text/css">
+        div {
+            white-space: pre;
+            font-family: monospace;
+            overflow: hidden;
+        }
+    </style>
+    <script async type="module">
+        import { parsed } from "../assets/local/modules/document-promises.js";
+        import { CesrDecoder, DecoderState } from "../assets/local/modules/cesr-decoder.js";
+        import { Utf8 } from "../assets/local/modules/utf8.js";
+
+        function replacer(k, v) {
+            if (v instanceof Uint8Array) {
+                return Utf8.decode(v);
+            }
+            return v;
+        }
+        function toJson(obj) {
+            return JSON.stringify(obj, replacer, 2);
+        }
+        function fromJson(json) {
+            return JSON.parse(json);
+        }
+
+        async function load() {
+            await parsed;
+            const output = document.getElementById("output");
+            const response = await fetch("../qvi-vc.cesr");
+            const input = new Uint8Array(await response.arrayBuffer());
+            const decoder = new CesrDecoder();
+            const state = new DecoderState();
+            for (const value of decoder.values(state, input)) {
+                let text = document.createTextNode(toJson(value.header) + "\r\n");
+                output.appendChild(text);
+
+                text = document.createTextNode(Utf8.decode(value.value) + "\r\n");
+                output.appendChild(text);
+            }
+        }
+        load();
+    </script>
+</head>
+
+<body>
+    <div id="output"></div>
+</body>
+
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>cesr-decoder</title>
+    <style type="text/css">
+        :root {
+            font-family: sans-serif;
+        }
+
+        body {
+            display: grid;
+            grid-template-areas:
+                "header-left header header-right"
+                "left main right"
+                "footer-left footer footer-right";
+            grid-template-rows: auto 1fr auto;
+            grid-template-columns: auto minmax(auto, 72em) auto;
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+
+        header {
+            grid-area: header;
+        }
+
+        main {
+            grid-area: main;
+        }
+
+        header,
+        details,
+        code {
+            outline: 1px solid black;
+            padding: 1em;
+        }
+
+        details {
+            margin-top: 1em;
+        }
+
+        summary:hover {
+            cursor: pointer;
+        }
+
+        summary:focus-visible {
+            outline: unset;
+        }
+
+        details:has(>summary:hover) {
+            outline-width: 2px;
+        }
+
+        details:has(>summary:focus-within) {
+            outline-width: 2px;
+        }
+
+        textarea {
+            word-break: break-all;
+        }
+
+        section.value>code {
+            margin-top: 1em;
+            padding: 0.5em;
+            display: block;
+            white-space: pre;
+            font-family: monospace;
+            overflow: hidden;
+            background-color: whitesmoke;
+        }
+
+        form>div {
+            display: flex;
+        }
+
+        form>div>textarea,
+        form>div>input {
+            flex: 1;
+        }
+
+        form>div>textarea {
+            resize: vertical;
+        }
+
+        form>div {
+            padding-bottom: 0.5em;
+        }
+
+        div#status {
+            display: none;
+        }
+
+        div.error#status {
+            display: unset;
+            color: red;
+        }
+
+        @supports selector(:has(>input)) {
+            p#warning {
+                display: none;
+            }
+        }
+    </style>
+    <script async type="module">
+        import { parsed } from "./assets/local/modules/document-promises.js";
+        import { getCesrValue, getCesrFrame } from "./assets/common/modules/cesr.js";
+        import { Utf8 } from "./assets/local/modules/utf8.js";
+        import { DecoderUi, DecoderState } from "./assets/local/modules/decoder-ui.js";
+
+        async function setup() {
+            await parsed;
+
+            const report = document.getElementById("report");
+            const status = document.getElementById("status");
+            const form = document.forms[0];
+
+            report.addEventListener("focusin", e => {
+                const details = e.target.closest("details");
+                if (details === null) return;
+                const start = details.dataset.start;
+                let end = details.dataset.end;
+                const list = details.querySelectorAll("details[data-end]");
+                end = list.length > 0 ? list.item(list.length - 1).dataset.end : end;
+                const value = form.elements["cesr"].value.slice(start, end);
+                console.log(value);
+            });
+
+            form.elements["fetch"].addEventListener("click", async e => {
+                e.preventDefault();
+                report.innerHTML = "";
+                form.elements["cesr"].value = "";
+                status.classList.remove("error");
+                const uri = form.elements["uri"].value;
+                try {
+                    const response = await fetch(uri, { mode: "cors" });
+                    if (!response.ok) throw new Error(`${response.status ?? response.statusText}`);
+                    form.elements["cesr"].value = await response.text();
+                } catch (e) {
+                    console.error(`GET ${uri}: failed: ${e.toString()}`);
+                    status.innerText = `GET ${uri}: failed: ${e.toString()}`;
+                    status.classList.add("error");
+                    return;
+                }
+                form.dispatchEvent(new SubmitEvent("submit"));
+            });
+
+            form.addEventListener("submit", e => {
+                e.preventDefault();
+                report.innerHTML = "";
+                status.classList.remove("error");
+                const buffer = Utf8.encode(form.elements["cesr"].value);
+                const state = new DecoderState(report);
+                state.currentFrame.valueGetter = form.elements["interleaved"].checked ? getCesrFrame : getCesrValue;
+                const decoder = new DecoderUi();
+                try {
+                    for (const code of decoder.values(state, buffer)) { }
+                } catch (e) {
+                    console.error(`CESR decode failed: ${e}`);
+                    status.innerText = `CESR decode failed: ${e}`;
+                    status.classList.add("error");
+                    return;
+                }
+            });
+
+            form.addEventListener("reset", e => {
+                report.innerHTML = "";
+                status.classList.remove("error");
+            });
+
+            form.elements["uri"].defaultValue = new URL("qvi-vc.cesr", location.href).toString();
+            form.dispatchEvent(new Event("reset"));
+
+            document.querySelectorAll("header a").forEach(i => i.addEventListener("click", e => {
+                e.preventDefault();
+                form.elements["uri"].value = e.target.innerText;
+                form.elements["interleaved"].checked = true;
+                form.elements["fetch"].dispatchEvent(new MouseEvent("click"));
+            }));
+        }
+
+        setup();
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>cesr-decoder</h1>
+        <p id="warning" style="color: red;">!!! This browser has rendering issues !!!</p>
+        <p>
+            [<a href="#">gleif-witness.cesr</a>]
+            &nbsp;
+            [<a href="#">root-gar-witness.cesr</a>]
+            &nbsp;
+            [<a href="#">external-gar-witness.cesr</a>]
+            &nbsp;
+            [<a href="#">qvi-vc.cesr</a>]
+            &nbsp;
+            [<a href="#">vlei-vc.cesr</a>]
+            &nbsp;
+            [<a href="#">ecr-vc.cesr</a>]
+            &nbsp;
+            [<a href="#">oorauth-vc.cesr</a>]
+            &nbsp;
+            [<a href="#">oor-vc.cesr</a>]
+        </p>
+        <form>
+            <div><input name="uri" type="text" /></div>
+            <div>
+                <button type="button" name="fetch">Fetch</button>
+            </div>
+            <div><textarea name="cesr" rows="8"></textarea></div>
+            <div>
+                <label><input type="checkbox" name="interleaved" checked />Interleaved</label>
+            </div>
+            <div>
+                <button type="submit" name="decode">Decode</button>
+                &nbsp;
+                <button type="reset">Reset</button>
+            </div>
+            <div id="status"></div>
+        </form>
+    </header>
+
+    <main id="report"></main>
+</body>
+
+</html>

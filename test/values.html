@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style type="text/css">
+        div {
+            white-space: pre;
+            font-family: monospace;
+            overflow: hidden;
+        }
+    </style>
+    <script async type="module">
+        import { parsed } from "../assets/local/modules/document-promises.js";
+        import { getCesrValue, getCesrFrame } from "../assets/common/modules/cesr.js";
+        import { KeriMainProtocol } from "../assets/common/modules/keri-main.js";
+        import { KeriIndexedProtocol } from "../assets/common/modules/keri-indexed.js";
+        import { Utf8 } from "../assets/local/modules/utf8.js";
+
+        const main = new KeriMainProtocol();
+        const indexed = new KeriIndexedProtocol();
+
+        function replacer(k, v) {
+            if (v instanceof Uint8Array) {
+                return Utf8.decode(v);
+            }
+            return v;
+        }
+        function toJson(obj) {
+            return JSON.stringify(obj, replacer, 2);
+        }
+        function fromJson(json) {
+            return JSON.parse(json);
+        }
+
+        async function load() {
+            await parsed;
+            let context = [];
+            let input = Utf8.encode("-VCS-AACAAAVjVkoNzYIrMdQK9RzpsMNqlS4Mh0biOCuImgxjKIL1MPUH6M0NaTz8GqBNofcjGQVWdJIFqQ2dA39RSSDzOcMABARMz9kdx5bYeGySsj5Tjd-pewsIb9Kql0tdmW4PFYegh_IdcVUfrB6VNSAt3k_CWVNMey88F6Q1bxWLMSt5ocF-BADAADplFnfBb-dtwBSiFmtprtg34gI02avLGDF5y42nk4WsuxWfjBdO747V3tAowIDzhMo3m_gRcqU_nLS7j2u1LEJABBdTWWI3PfXPuLubbzpAz6qsu0SZktQBmWUvMcUEWtwGnfnciRppqICtZgExWfIufIZjyWm3K2Tp5NFRxYmAvwNACDg9xC2D8AdnI3eZDo1kd1di_fdWtbrcA9BF7XZka76-Gm_vcfh5NrS6mHnD4PkAwMsTqsbPfPMyF2dSCPQQ28I-GAB0AAAAAAAAAAAAAAAAAAAAAABEJWc4NSCg6OQkoSBKVburn1dTLP7MksADfRgxCVOGNDb-EAB0AAAAAAAAAAAAAAAAAAAAAAA1AAG2023-02-01T08c08c08d869005p00c00");
+            while (input.length > 0) {
+                const p = context.shift() ?? main;
+                const value = getCesrValue(p, input);
+
+                if (KeriMainProtocol.isIndexGroup(value.header)) {
+                    context = new Array(value.header.count).fill(indexed).concat(context);
+                }
+
+                let text = document.createTextNode(toJson(value.header) + "\r\n");
+                output.appendChild(text);
+
+                text = document.createTextNode(Utf8.decode(value.value) + "\r\n");
+                output.appendChild(text);
+
+                input = input.slice(value.length);
+            }
+        }
+        load();
+    </script>
+</head>
+
+<body>
+    <div id="output"></div>
+</body>
+
+</html>
