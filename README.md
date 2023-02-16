@@ -27,7 +27,7 @@ Top of the page has a number of links to previously recorded CESR streams. Click
     * GLEIF Root AID from https://gleif-it.github.io/.well-known/keri/oobi/EDP1vHcw_wc4M__Fj53-cJaBnZZASd-aMTaSyWEQ-PC2
     * `curl http://5.161.69.25:5623/oobi/EDP1vHcw_wc4M__Fj53-cJaBnZZASd-aMTaSyWEQ-PC2/witness`
 
-### From development environemnt
+### From development environment
 
 * root-gar-witness.cesr
     * Root AID 
