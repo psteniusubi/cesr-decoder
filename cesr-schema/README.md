@@ -9,16 +9,13 @@ Map selector to name. Generated automatically
 ```json
 {
     "Matter": {
-        "A": "Ed25519_Seed",
-        ...
+        "A": "Ed25519_Seed",        
     },
     "Indexer": {
         "A": "Ed25519_Sig",
-        ...
     },
     "Counter": {
         "-A": "ControllerIdxSigs",
-        ...
     }
 }
 ```
@@ -31,10 +28,9 @@ Map selector to code parameters. Generated automatically
 {
   "Matter": {
     "A": {"hs": 1,"ss": 0,"fs": 44,"ls": 0},
-    ...
+  },
   "Indexer": {
     "A": {"hs": 1,"ss": 1,"os": 0,"fs": 88,"ls": 0},
-    ...
   },
   "Counter": {
     "-A": {"hs": 2,"ss": 2,"fs": 4,"ls": 0},
@@ -51,7 +47,6 @@ List all names as a sorted array. Generated automatically
   "AttachedMaterialQuadlets",
   "Big",
   "BigAttachedMaterialQuadlets",
-  ...
 ]
 ```
 
@@ -90,14 +85,11 @@ Possible values for `count`
         "-D": {
             "count": "*4",
         },
-        ...
         "-K": {
             "count": "*2+1" 
         },
-        ...
         "-V": {
         },
-        ...       
         "--AAA": {
             "context": "Matter"
         }
@@ -118,7 +110,6 @@ Default sizes for (otherwise unknown) codes based on CESR specification. Match c
             "hs": 1,
             "ss": 0
         },
-        ...
     }
 }
 ```
