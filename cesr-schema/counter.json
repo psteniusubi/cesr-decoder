@@ -1,0 +1,137 @@
+{
+  "Counter": {
+    "-A": {
+      "name": "ControllerIdxSigs",
+      "count": "*1",
+      "context": "Indexer"
+    },
+    "-B": {
+      "name": "WitnessIdxSigs",
+      "count": "*1",
+      "context": "Indexer"
+    },
+    "-C": {
+      "name": "NonTransReceiptCouples",
+      "count": "*2"
+    },
+    "-D": {
+      "name": "TransReceiptQuadruples",
+      "count": "*4"
+    },
+    "-E": {
+      "name": "FirstSeenReplayCouples",
+      "count": "*2"
+    },
+    "-F": {
+      "name": "TransIdxSigGroups",
+      "count": "*4"
+    },
+    "-G": {
+      "name": "SealSourceCouples",
+      "count": "*2"
+    },
+    "-H": {
+      "name": "TransLastIdxSigGroups",
+      "count": "*2"
+    },
+    "-I": {
+      "name": "SealSourceTriples",
+      "count": "*3"
+    },
+    "-J": {
+      "name": "SadPathSig",
+      "count": "*2"
+    },
+    "-K": {
+      "name": "SadPathSigGroup",
+      "count": "*2+1"
+    },
+    "-L": {
+      "name": "PathedMaterialQuadlets"
+    },
+    "-V": {
+      "name": "AttachedMaterialQuadlets"
+    },
+    "-0V": {
+      "name": "BigAttachedMaterialQuadlets"
+    },
+    "--AAA": {
+      "name": "KERIProtocolStack",
+      "context": "Matter"
+    }
+  },
+  "AltCounter": {
+    "-A": {
+      "name": "ControllerIdxSigs"
+    },
+    "-B": {
+      "name": "WitnessIdxSigs"
+    },
+    "-C": {
+      "name": "NonTransReceiptCouples"
+    },
+    "-D": {
+      "name": "TransReceiptQuadruples"
+    },
+    "-E": {
+      "name": "FirstSeenReplayCouples"
+    },
+    "-F": {
+      "name": "TransIdxSigGroups"
+    },
+    "-G": {
+      "name": "SealSourceCouples"
+    },
+    "-H": {
+      "name": "TransLastIdxSigGroups"
+    },
+    "-I": {
+      "name": "SealSourceTriples"
+    },
+    "-J": {
+      "name": "SadPathSig"
+    },
+    "-K": {
+      "name": "SadPathSigGroup"
+    },
+    "-L": {
+      "name": "PathedMaterialQuadlets"
+    },
+    "-U": {
+      "name": "MessageDataGroups"
+    },
+    "-V": {
+      "name": "AttachedMaterialQuadlets"
+    },
+    "-W": {
+      "name": "MessageDataMaterialQuadlets"
+    },
+    "-X": {
+      "name": "CombinedMaterialQuadlets"
+    },
+    "-Y": {
+      "name": "MaterialGroups"
+    },
+    "-Z": {
+      "name": "MaterialQuadlets"
+    },
+    "-0U": {
+      "name": "BigMessageDataGroups"
+    },
+    "-0V": {
+      "name": "BigAttachedMaterialQuadlets"
+    },
+    "-0W": {
+      "name": "BigMessageDataMaterialQuadlets"
+    },
+    "-0X": {
+      "name": "BigCombinedMaterialQuadlets"
+    },
+    "-0Y": {
+      "name": "BigMaterialGroups"
+    },
+    "-0Z": {
+      "name": "BigMaterialQuadlets"
+    }
+  }
+}
