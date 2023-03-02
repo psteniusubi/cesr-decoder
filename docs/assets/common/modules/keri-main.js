@@ -194,7 +194,7 @@ export class KeriSmallGroupCodeTable extends SmallGroupCodeTable {
             case '-F': return count * 4;
             case '-G': return count * 2;
             case '-H': return count * 2;
-            case '-J': return count * 1;
+            case '-J': return count;
             case '-K': return 1 + count * 2;
             case '-L': return count;
             case '-V': return count;

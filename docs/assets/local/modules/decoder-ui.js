@@ -27,25 +27,51 @@ function formatHeader(code) {
     return parts.join(" ");
 }
 
+function formatJsonHeader(code, json) {
+    const parts = [];
+    parts.push(code.header.value);
+    parts.push(code.header.type);
+    parts.push(`size=${code.header.size}`);
+    switch (code.header.type) {
+        case "KERI10":
+            for (const i of ["t", "i", "r"]) {
+                if (Object.hasOwn(json, i)) {
+                    parts.push(`${i}=${json[i]}`);
+                }
+            }
+            break;
+        case "ACDC10":
+            for (const i of ["i", "s"]) {
+                if (Object.hasOwn(json, i)) {
+                    parts.push(`${i}=${json[i]}`);
+                }
+            }
+            break;
+    }
+    return parts.join(" ");
+}
+
 export class DecoderUi extends CesrDecoder {
-    mapDefault(frame, group, code, offset) {
+    mapDefault(frame, group, code, offset, header) {
         const parent = (group?.value ?? frame.value);
         const details = document.createElement("details");
         details.setAttribute("data-start", offset.start);
         details.setAttribute("data-end", offset.start + offset.length);
         const summary = document.createElement("summary");
-        summary.innerText = formatHeader(code);
+        header ??= formatHeader(code);
+        summary.innerText = header;
         details.appendChild(summary);
         parent.appendChild(details);
         return details;
     }
     mapJsonFrame(frame, group, code, offset) {
-        const details = this.mapDefault(frame, group, code, offset);
+        const json = fromJson(Utf8.decode(code.value));
+        const details = this.mapDefault(frame, group, code, offset, formatJsonHeader(code, json));
         details.classList.add("frame", "json");
         const section = document.createElement("section");
         section.classList.add("value");
         const value = document.createElement("code");
-        value.innerText = toJson(fromJson(Utf8.decode(code.value)));
+        value.innerText = toJson(json);
         section.appendChild(value);
         details.appendChild(section);
         return details;
