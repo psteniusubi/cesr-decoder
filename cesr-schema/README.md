@@ -2,7 +2,7 @@
 
 https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html
 
-## codex.json
+## [codex.json](codex.json)
 
 Map selector to name. Generated automatically
 
