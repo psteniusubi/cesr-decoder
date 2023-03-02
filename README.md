@@ -7,6 +7,7 @@ This implementation is based on following specifications
 * https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html
 * https://weboftrust.github.io/ietf-cesr-proof/draft-pfeairheller-cesr-proof.html
 * https://trustoverip.github.io/tswg-acdc-specification/draft-ssmith-acdc.html
+* https://weboftrust.github.io/ietf-keri/draft-ssmith-keri.html
 
 Note! This app may fail to recognize some latest CESR codes already implemented in [keripy](https://github.com/WebOfTrust/keripy) but that haven't been added to the spec.
 
