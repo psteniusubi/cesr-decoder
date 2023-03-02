@@ -11,14 +11,17 @@ with open("default_sizes.json", "r") as fp:
     default_sizes = json.load(fp)
 
 for i in default_sizes.values():
-    for key, value in i.items():
-        pattern = key
+    for value in i.values():
+        # transform regex to python regex
+        pattern = value["pattern"]
         pattern = pattern.replace("[:alpha:]", "[A-Za-z]")
         pattern = pattern.replace("[:base64:]", "[A-Za-z0-9_-]")
         value["pattern"] = re.compile(f"^{pattern}")
 
+# buggy selector definitions
 special = {"0z","1z","4z"}
 
+# make sure sizes.json and default_sizes.json match
 def test_default_sizes():
     codes = set()
     for i in ("Matter","Counter","Indexer"):
@@ -46,5 +49,3 @@ def test_default_sizes():
         for key, value in codex[i].items():
             if not key in codes:
                 assert key in special, f"key = {i}.{key}"
-
-    #print(json.dumps(default_sizes, indent=2))
