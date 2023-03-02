@@ -20,7 +20,7 @@ Map selector to name. Generated automatically
 }
 ```
 
-## sizes.json
+## [sizes.json](sizes.json)
 
 Map selector to code parameters. Generated automatically
 
@@ -38,7 +38,7 @@ Map selector to code parameters. Generated automatically
 }
 ```
 
-## names.json
+## [names.json](names.json)
 
 List all names as a sorted array. Generated automatically
 
@@ -50,7 +50,7 @@ List all names as a sorted array. Generated automatically
 ]
 ```
 
-## counter.json
+## [counter.json](counter.json)
 
 Maintain manually.
 
@@ -97,7 +97,7 @@ Possible values for `count`
 }
 ```
 
-## default_sizes.json
+## [default_sizes.json](default_sizes.json)
 
 Maintain manually.
 
