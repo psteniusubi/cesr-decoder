@@ -52,7 +52,7 @@ List all names as a sorted array. Generated automatically
 
 ## [counter.json](counter.json)
 
-Maintain manually.
+Maintain manually. Derived from information in [CESR spec](https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html) and [parsing.py](https://github.com/WebOfTrust/keripy/blob/development/src/keri/core/parsing.py)
 
 Define number of entries in a group with `count` parameter, ie `-A`, `-B`, `-C` and `-D` selectors.
 
@@ -99,14 +99,16 @@ Possible values for `count`
 
 ## [default_sizes.json](default_sizes.json)
 
-Maintain manually.
+Maintain manually. Derived from information in [CESR spec](https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html)
 
 Default sizes for (otherwise unknown) codes based on CESR specification. Match codes using regular expression.
 
 ```json
 {
     "Matter": {
-        "[:alpha:]{1}": {
+        "OneCharFixedSize": {
+            "spec": "https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html#section-3.9.1",
+            "pattern": "[:alpha:]{1}",
             "hs": 1,
             "ss": 0
         },
