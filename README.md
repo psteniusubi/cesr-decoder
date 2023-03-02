@@ -1,6 +1,6 @@
 # CESR decoder
 
-Browser based CESR decoder app implemented in javascript. The purpose of this app to visualize CESR streams and values. I have found this useful when learning how CESR works.
+Browser based [CESR decoder app](https://psteniusubi.github.io/cesr-decoder/) implemented in javascript. The purpose of this app is to visualize CESR streams and values. I have found this useful when learning how CESR works.
 
 This implementation is based on following specifications 
 
