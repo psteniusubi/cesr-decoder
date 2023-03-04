@@ -72,11 +72,11 @@ Possible values for `count`
 {
     "Counter": {
         "-A": {
-            "context": "Indexer",
+            "context": ["Indexer"],
             "count": "*1",
         },
         "-B": {
-            "context": "Indexer",
+            "context": ["Indexer"],
             "count": "*1",
         },
         "-C": {
@@ -91,7 +91,7 @@ Possible values for `count`
         "-V": {
         },
         "--AAA": {
-            "context": "Matter"
+            "context": ["Matter","Counter"]
         }
     }
 }
@@ -108,7 +108,7 @@ Default sizes for (otherwise unknown) codes based on CESR specification. Match c
     "Matter": {
         "OneCharFixedSize": {
             "spec": "https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html#section-3.9.1",
-            "pattern": "[:alpha:]{1}",
+            "hard_pattern": "[:alpha:]{1}",
             "hs": 1,
             "ss": 0
         },
