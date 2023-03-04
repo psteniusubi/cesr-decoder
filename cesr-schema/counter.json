@@ -3,12 +3,16 @@
     "-A": {
       "name": "ControllerIdxSigs",
       "count": "*1",
-      "context": "Indexer"
+      "context": [
+        "Indexer"
+      ]
     },
     "-B": {
       "name": "WitnessIdxSigs",
       "count": "*1",
-      "context": "Indexer"
+      "context": [
+        "Indexer"
+      ]
     },
     "-C": {
       "name": "NonTransReceiptCouples",
@@ -57,7 +61,10 @@
     },
     "--AAA": {
       "name": "KERIProtocolStack",
-      "context": "Matter"
+      "context": [
+        "Matter",
+        "Counter"
+      ]
     }
   },
   "AltCounter": {

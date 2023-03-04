@@ -13,10 +13,15 @@ with open("default_sizes.json", "r") as fp:
 for i in default_sizes.values():
     for value in i.values():
         # transform regex to python regex
-        pattern = value["pattern"]
-        pattern = pattern.replace("[:alpha:]", "[A-Za-z]")
-        pattern = pattern.replace("[:base64:]", "[A-Za-z0-9_-]")
-        value["pattern"] = re.compile(f"^{pattern}")
+        hard_pattern = value["hard_pattern"]
+        hard_pattern = hard_pattern.replace("[:alpha:]", "[A-Za-z]")
+        hard_pattern = hard_pattern.replace("[:base64:]", "[A-Za-z0-9_-]")
+        value["hard_pattern"] = re.compile(f"^{hard_pattern}")
+        if "soft_pattern" in value:
+            soft_pattern = value["soft_pattern"]
+            soft_pattern = soft_pattern.replace("[:alpha:]", "[A-Za-z]")
+            soft_pattern = soft_pattern.replace("[:base64:]", "[A-Za-z0-9_-]")
+            value["soft_pattern"] = re.compile(f"^{soft_pattern}")
 
 # buggy selector definitions
 special = {"0z","1z","4z"}
@@ -29,7 +34,7 @@ def test_default_sizes():
             s = sizes[i][key]
             match = False
             for j in default_sizes[i].values():
-                pattern = j["pattern"]
+                pattern = j["hard_pattern"]
                 code = f"{key}AAAAAAAA"[:8]
                 if pattern.match(code):
                     assert match == False, f"key = {i}.{key}"
