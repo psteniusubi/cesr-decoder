@@ -9,18 +9,18 @@ This implementation is based on following specifications
 * https://trustoverip.github.io/tswg-acdc-specification/draft-ssmith-acdc.html
 * https://weboftrust.github.io/ietf-keri/draft-ssmith-keri.html
 
-Note! This app may fail to recognize some latest CESR codes already implemented in [keripy](https://github.com/WebOfTrust/keripy) but that haven't been added to the spec.
+The CESR tables used by this app are automatically generated from [keripy](https://github.com/WebOfTrust/keripy). See also [cesr-decoder](./cesr-decoder).
 
 ## Usage
 
 1. Navigate to https://psteniusubi.github.io/cesr-decoder/
-2. Paste CESR text into textbox 
-3. Check Interleaved if CESR text is stream content
+2. Paste CESR text into textbox or click any of the CESR sample links
+3. Check Interleaved if CESR text is stream content (stream has JSON and CESR interleaved)
 4. Click Decode
 
 ## Sample CESR content
 
-Top of the page has a number of links to previously recorded CESR streams. Click on the link to see the CESR stream decoded.
+Top of the page has a number of links to previously recorded CESR streams. Click on the links to see the CESR stream decoded.
 
 ### From public sources
 
