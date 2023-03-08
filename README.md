@@ -24,31 +24,31 @@ Top of the page has a number of links to previously recorded CESR streams. Click
 
 ### From public sources
 
-* gleif-witness.cesr
+* [gleif-witness.cesr](./docs/gleif-witness.cesr?raw=1)
     * GLEIF Root AID from https://gleif-it.github.io/.well-known/keri/oobi/EDP1vHcw_wc4M__Fj53-cJaBnZZASd-aMTaSyWEQ-PC2
     * `curl http://5.161.69.25:5623/oobi/EDP1vHcw_wc4M__Fj53-cJaBnZZASd-aMTaSyWEQ-PC2/witness`
 
 ### From development environment
 
-* root-gar-witness.cesr
+* [root-gar-witness.cesr](./docs/root-gar-witness.cesr?raw=1)
     * Root AID 
     * `curl http://localhost:5642/oobi/EOrY4RvOFobQABrEXfs-aeLm6g16SvTxuLXny7L7tRsr/witness/BBD-O2WpLl_Hj0H-SXQ304ih90p64myHJvONeACSfV3L`
-* external-gar-witness.cesr
+* [external-gar-witness.cesr](./docs/external-gar-witness.cesr?raw=1)
     * External GAR AID 
     * `curl http://localhost:5642/oobi/ECEGsrEr76cDQCdIUHbsO39sI_0WFTbbfdMB0O2LHLyD/witness/BBD-O2WpLl_Hj0H-SXQ304ih90p64myHJvONeACSfV3L`
-* qvi-vc.cesr
+* [qvi-vc.cesr](./docs/qvi-vc.cesr?raw=1)
     * QVI credential issued by External Root to QVI
     * `kli vc export --said EN0PX0BxkYvdx9zdidmjEcswQFNIGFsv5RJ87XUcaui5 --full`
-* vlei-vc.cesr
+* [vlei-vc.cesr](./docs/vlei-vc.cesr?raw=1)
     * vLEI credential issued by QVI to Legal Entity
     * `kli vc export --said EIZr1Ehn41dbGRMD-_B7gZsSZnZwMR3dffMzqEMvfzOr --full`
-* ecr-vc.cesr
+* [ecr-vc.cesr](./docs/ecr-vc.cesr?raw=1)
     * ECR credential issued by Legal Entity to individual
     * `kli vc export --said EJmXcc0-50VW1gHgFgBf5_mlMGdcp12psvuUfxb2CsGK --full`
-* oorauth-vc.cesr
+* [oorauth-vc.cesr](./docs/oorauth-vc.cesr?raw=1)
     * OOR authorization credential issued by Legal Entity to QVI
     * `kli vc export --said ENc0tif7Pkdikih4zZWTIA3WFM_gIOxhVlkrMTMMIACt --full`
-* oor-vc.cesr
+* [oor-vc.cesr](./docs/oor-vc.cesr?raw=1)
     * OOR credential issued by QVI to individual
     * `kli vc export --said EKVOy7xgTvSl2YXqi3s-OfQPm5tIC3AlD8VMTdNaNVZ_ --full`
 
