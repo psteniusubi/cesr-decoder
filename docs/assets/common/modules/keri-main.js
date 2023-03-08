@@ -1,5 +1,6 @@
 import { UnknownCodeError, CesrProtocol, CesrCodeTable, CesrCodeHeader } from "./cesr.js";
 import { OneCharFixedSizeCodeTable, TwoCharFixedSizeCodeTable, LargeFixedSizeCodeTable, SmallVariableSizeCodeTable, LargeVariableSizeCodeTable, SmallGroupCodeTable, LargeGroupCodeTable, ProtocolVersionCodeTable } from "./cesr-main.js";
+import { KeriIndexedProtocol } from "./keri-indexed.js";
 import { Matter, Counter } from "./keri-names.js";
 import { Base64 } from "../../local/modules/base64.js";
 
@@ -70,7 +71,29 @@ export class KeriMainProtocol extends CesrProtocol {
      * @param {CesrCodeHeader} code 
      * @returns {boolean}
      */
-    static isIndexGroup(code) {
+    isFrame(code) {
+        switch (code.selector) {
+            case "-V":
+            case "-0V":
+                return true;
+            default:
+                return false;
+        }
+    }
+    /**
+     * @param {CesrCodeHeader} code 
+     * @returns {boolean}
+     */
+    isGroup(code) {
+        if (this.isFrame(code)) return false;
+        return Object.hasOwn(code, "count");
+    }
+    /**
+     * @override
+     * @param {CesrCodeHeader} code 
+     * @returns {boolean}
+     */
+    hasContext(code) {
         switch (code.selector) {
             case "-A":
             case "-B":
@@ -78,6 +101,14 @@ export class KeriMainProtocol extends CesrProtocol {
             default:
                 return false;
         }
+    }
+    /**
+     * @override
+     * @param {CesrCodeHeader} code 
+     * @returns {CesrProtocol}
+     */
+    getContext(code) {
+        return this.hasContext(code) ? new KeriIndexedProtocol() : null;
     }
 }
 

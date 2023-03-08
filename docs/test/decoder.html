@@ -12,6 +12,7 @@
     <script async type="module">
         import { parsed } from "../assets/local/modules/document-promises.js";
         import { CesrDecoder, DecoderState } from "../assets/local/modules/cesr-decoder.js";
+        import { CesrSchemaProtocol } from "../assets/common/modules/cesr-schema.js";
         import { Utf8 } from "../assets/local/modules/utf8.js";
 
         function replacer(k, v) {
@@ -28,11 +29,12 @@
         }
 
         async function load() {
+            const protocol_promise = CesrSchemaProtocol.load("Matter", "Counter");
+            const response = await fetch("../qvi-vc.cesr");
             await parsed;
             const output = document.getElementById("output");
-            const response = await fetch("../qvi-vc.cesr");
             const input = new Uint8Array(await response.arrayBuffer());
-            const decoder = new CesrDecoder();
+            const decoder = new CesrDecoder(await protocol_promise);
             const state = new DecoderState();
             for (const value of decoder.values(state, input)) {
                 let text = document.createTextNode(toJson(value.header) + "\r\n");

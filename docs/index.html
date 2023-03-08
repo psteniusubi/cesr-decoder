@@ -3,111 +3,17 @@
 
 <head>
     <title>cesr-decoder</title>
-    <style type="text/css">
-        :root {
-            font-family: sans-serif;
-        }
-
-        body {
-            display: grid;
-            grid-template-areas:
-                "header-left header header-right"
-                "left main right"
-                "footer-left footer footer-right";
-            grid-template-rows: auto 1fr auto;
-            grid-template-columns: auto minmax(auto, 72em) auto;
-            overflow-x: hidden;
-            overflow-y: scroll;
-        }
-
-        header {
-            grid-area: header;
-        }
-
-        main {
-            grid-area: main;
-        }
-
-        header,
-        details,
-        code {
-            outline: 1px solid black;
-            padding: 1em;
-        }
-
-        details {
-            margin-top: 1em;
-        }
-
-        summary:hover {
-            cursor: pointer;
-        }
-
-        summary:focus-visible {
-            outline: unset;
-        }
-
-        details:has(>summary:hover) {
-            outline-width: 2px;
-        }
-
-        details:has(>summary:focus-within) {
-            outline-width: 2px;
-        }
-
-        textarea {
-            word-break: break-all;
-        }
-
-        section.value>code {
-            margin-top: 1em;
-            padding: 0.5em;
-            display: block;
-            white-space: pre;
-            font-family: monospace;
-            overflow: hidden;
-            background-color: whitesmoke;
-        }
-
-        form>div {
-            display: flex;
-        }
-
-        form>div>textarea,
-        form>div>input {
-            flex: 1;
-        }
-
-        form>div>textarea {
-            resize: vertical;
-        }
-
-        form>div {
-            padding-bottom: 0.5em;
-        }
-
-        div#status {
-            display: none;
-        }
-
-        div.error#status {
-            display: unset;
-            color: red;
-        }
-
-        @supports selector(:has(>input)) {
-            p#warning {
-                display: none;
-            }
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="./assets/local/styles/decoder.css" />
     <script async type="module">
         import { parsed } from "./assets/local/modules/document-promises.js";
         import { getCesrValue, getCesrFrame } from "./assets/common/modules/cesr.js";
         import { Utf8 } from "./assets/local/modules/utf8.js";
         import { DecoderUi, DecoderState } from "./assets/local/modules/decoder-ui.js";
+        import { CesrSchemaProtocol } from "./assets/common/modules/cesr-schema.js";
 
         async function setup() {
+            const protocol_promise = CesrSchemaProtocol.load("Matter", "Counter");
+
             await parsed;
 
             const report = document.getElementById("report");
@@ -121,8 +27,8 @@
                 let end = details.dataset.end;
                 const list = details.querySelectorAll("details[data-end]");
                 end = list.length > 0 ? list.item(list.length - 1).dataset.end : end;
-                const value = form.elements["cesr"].value.slice(start, end);
-                console.log(value);
+                // const value = form.elements["cesr"].value.slice(start, end);
+                // console.log(value);
             });
 
             form.elements["fetch"].addEventListener("click", async e => {
@@ -144,14 +50,14 @@
                 form.dispatchEvent(new SubmitEvent("submit"));
             });
 
-            form.addEventListener("submit", e => {
+            form.addEventListener("submit", async e => {
                 e.preventDefault();
                 report.innerHTML = "";
                 status.classList.remove("error");
                 const buffer = Utf8.encode(form.elements["cesr"].value);
                 const state = new DecoderState(report);
                 state.currentFrame.valueGetter = form.elements["interleaved"].checked ? getCesrFrame : getCesrValue;
-                const decoder = new DecoderUi();
+                const decoder = new DecoderUi(await protocol_promise);
                 try {
                     for (const code of decoder.values(state, buffer)) { }
                 } catch (e) {

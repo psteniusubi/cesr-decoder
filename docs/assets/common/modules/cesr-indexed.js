@@ -18,6 +18,7 @@ export class IndexedTwoCharFixedSizeCodeTable extends CesrCodeTable {
      */
     mapCodeHeader(code) {
         return new CesrCodeHeader({
+            table: this,
             value: code.slice(0, this.codeSize),
             selector: code.slice(0, 1),
             type: code.slice(0, 1),
@@ -45,6 +46,7 @@ export class IndexedFourCharFixedSizeCodeTable extends CesrCodeTable {
      */
     mapCodeHeader(code) {
         return new CesrCodeHeader({
+            table: this,
             value: code.slice(0, this.codeSize),
             selector: code.slice(0, 2),
             type: code.slice(1, 2),
@@ -73,6 +75,7 @@ export class IndexedSixCharFixedSizeCodeTable extends CesrCodeTable {
      */
     mapCodeHeader(code) {
         return new CesrCodeHeader({
+            table: this,
             value: code.slice(0, this.codeSize),
             selector: code.slice(0, 2),
             type: code.slice(1, 2),
@@ -101,6 +104,7 @@ export class IndexedEightCharFixedSizeCodeTable extends CesrCodeTable {
      */
     mapCodeHeader(code) {
         return new CesrCodeHeader({
+            table: this,
             value: code.slice(0, this.codeSize),
             selector: code.slice(0, 2),
             type: code.slice(1, 2),

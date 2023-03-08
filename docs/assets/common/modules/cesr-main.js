@@ -19,6 +19,7 @@ export class OneCharFixedSizeCodeTable extends CesrCodeTable {
     mapCodeHeader(code) {
         // "[A-Za-z]"
         return new CesrCodeHeader({
+            table: this,
             value: code.slice(0, this.codeSize),
             selector: code.slice(0, 1),
             type: code.slice(0, 1),
@@ -45,6 +46,7 @@ export class TwoCharFixedSizeCodeTable extends CesrCodeTable {
     mapCodeHeader(code) {
         // "0.{1}"
         return new CesrCodeHeader({
+            table: this,
             value: code.slice(0, this.codeSize),
             selector: code.slice(0, 2),
             type: code.slice(1, 2),
@@ -71,6 +73,7 @@ export class LargeFixedSizeCodeTable extends CesrCodeTable {
     mapCodeHeader(code) {
         // "[1-3].{3}"
         return new CesrCodeHeader({
+            table: this,
             value: code.slice(0, this.codeSize),
             selector: code.slice(0, 4),
             type: code.slice(1, 4),
@@ -107,6 +110,7 @@ export class SmallVariableSizeCodeTable extends CesrCodeTable {
     mapCodeHeader(code) {
         // "[4-6].{1}.{2}"
         return new CesrCodeHeader({
+            table: this,
             value: code.slice(0, this.codeSize),
             selector: code.slice(0, 2),
             type: code.slice(1, 2),
@@ -143,6 +147,7 @@ export class LargeVariableSizeCodeTable extends CesrCodeTable {
     mapCodeHeader(code) {
         // "[7-9].{3}.{4}"
         return new CesrCodeHeader({
+            table: this,
             value: code.slice(0, this.codeSize),
             selector: code.slice(0, 4),
             type: code.slice(1, 4),
@@ -179,6 +184,7 @@ export class SmallGroupCodeTable extends CesrCodeTable {
     mapCodeHeader(code) {
         // "-[A-Za-z].{2}"
         return new CesrCodeHeader({
+            table: this,
             value: code.slice(0, this.codeSize),
             selector: code.slice(0, 2),
             type: code.slice(1, 2),
@@ -208,6 +214,7 @@ export class LargeGroupCodeTable extends CesrCodeTable {
     mapCodeHeader(code) {
         // "-0[A-Za-z].{5}"
         return new CesrCodeHeader({
+            table: this,
             value: code.slice(0, this.codeSize),
             selector: code.slice(0, 3),
             type: code.slice(2, 3),
@@ -237,6 +244,7 @@ export class ProtocolVersionCodeTable extends CesrCodeTable {
     mapCodeHeader(code) {
         // "--.{3}.{3}"
         return new CesrCodeHeader({
+            table: this,
             value: code.slice(0, this.codeSize),
             selector: code.slice(0, 5),
             type: code.slice(2, 5),

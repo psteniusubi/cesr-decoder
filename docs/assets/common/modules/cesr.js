@@ -1,5 +1,3 @@
-import { Base64 } from "../../local/modules/base64.js";
-
 /*
 
 https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html
@@ -27,6 +25,8 @@ export class UnknownCodeError extends Error {
  * https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html#section-3.16 
  */
 export class CesrCodeHeader {
+    /** @type {CesrCodeTable} */
+    table;
     /** @type {string} */
     value;
     /** @type {string} */
@@ -40,13 +40,14 @@ export class CesrCodeHeader {
     get length() { return this.value.length; }
     /** @param {object} obj */
     constructor(obj) {
+        this.table = obj.table;
         this.value = obj.value;
         this.selector = obj.selector;
         this.type = obj.type;
         // define optional property digits
         if (Object.hasOwn(obj, "digits")) this.digits = obj.digits;
         // define optional context specific properties
-        for (const key of ["typeName", "leadBytes", "size", "count", "version", "index", "ondex"]) {
+        for (const key of ["typeName", "leadBytes", "size", "count", "quadlets", "version", "index", "ondex"]) {
             if (Object.hasOwn(obj, key) && obj[key] !== undefined) {
                 const descriptor = {
                     enumerable: true
@@ -89,6 +90,34 @@ export class CesrProtocol {
      * @returns {string}
      */
     getTypeName(code) {
+        return undefined;
+    }
+    /**
+     * @param {CesrCodeHeader} code 
+     * @returns {boolean}
+     */
+    isFrame(code) {
+        return false;
+    }
+    /**
+     * @param {CesrCodeHeader} code 
+     * @returns {boolean}
+     */
+    isGroup(code) {
+        return false;
+    }
+    /**
+     * @param {CesrCodeHeader} code 
+     * @returns {boolean}
+     */
+    hasContext(code) {
+        return false;
+    }
+    /**
+     * @param {CesrCodeHeader} code 
+     * @returns {CesrProtocol}
+     */
+    getContext(code) {
         return undefined;
     }
     /** 
@@ -183,7 +212,7 @@ export class CesrCodeTable {
             return self.getLeadBytes(this);
         }
     }
-    /** @type {string} */
+    /** @returns {string} */
     toJSON() { return this.name; }
 }
 

@@ -13,11 +13,9 @@
         import { parsed } from "../assets/local/modules/document-promises.js";
         import { getCesrValue, getCesrFrame } from "../assets/common/modules/cesr.js";
         import { KeriMainProtocol } from "../assets/common/modules/keri-main.js";
-        import { KeriIndexedProtocol } from "../assets/common/modules/keri-indexed.js";
         import { Utf8 } from "../assets/local/modules/utf8.js";
 
         const main = new KeriMainProtocol();
-        const indexed = new KeriIndexedProtocol();
 
         function replacer(k, v) {
             if (v instanceof Uint8Array) {
@@ -40,8 +38,8 @@
                 const p = context.shift() ?? main;
                 const value = getCesrValue(p, input);
 
-                if (KeriMainProtocol.isIndexGroup(value.header)) {
-                    context = new Array(value.header.count).fill(indexed).concat(context);
+                if (p.hasContext(value.header)) {
+                    context = new Array(value.header.count).fill(p.getContext(value.header)).concat(context);
                 }
 
                 let text = document.createTextNode(toJson(value.header) + "\r\n");

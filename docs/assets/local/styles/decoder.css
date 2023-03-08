@@ -1,0 +1,96 @@
+:root {
+    font-family: sans-serif;
+}
+
+body {
+    display: grid;
+    grid-template-areas:
+        "header-left header header-right"
+        "left main right"
+        "footer-left footer footer-right";
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: auto minmax(auto, 72em) auto;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+header {
+    grid-area: header;
+}
+
+main {
+    grid-area: main;
+}
+
+header,
+details,
+code {
+    outline: 1px solid black;
+    padding: 1em;
+}
+
+details {
+    margin-top: 1em;
+}
+
+summary:hover {
+    cursor: pointer;
+}
+
+summary:focus-visible {
+    outline: unset;
+}
+
+details:has(>summary:hover) {
+    outline-width: 2px;
+}
+
+details:has(>summary:focus-within) {
+    outline-width: 2px;
+}
+
+textarea {
+    word-break: break-all;
+}
+
+section.value>code {
+    margin-top: 1em;
+    padding: 0.5em;
+    display: block;
+    white-space: pre;
+    font-family: monospace;
+    overflow: hidden;
+    background-color: whitesmoke;
+}
+
+form>div {
+    display: flex;
+}
+
+form>div>textarea,
+form>div>input {
+    flex: 1;
+}
+
+form>div>textarea {
+    resize: vertical;
+}
+
+form>div {
+    padding-bottom: 0.5em;
+}
+
+div#status {
+    display: none;
+}
+
+div.error#status {
+    display: unset;
+    color: red;
+}
+
+@supports selector(:has(>input)) {
+    p#warning {
+        display: none;
+    }
+}

@@ -1,0 +1,151 @@
+{
+    "Matter": {
+        "OneCharFixedSize": {
+            "spec": "https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html#section-3.9.1",
+            "hard_pattern": "[:alpha:]{1}",
+            "hs": 1,
+            "ss": 0
+        },
+        "TwoCharFixedSize": {
+            "spec": "https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html#section-3.9.2",
+            "hard_pattern": "0{1}[:base64:]{1}",
+            "hs": 2,
+            "ss": 0
+        },
+        "LargeFixedSizeLead0": {
+            "spec": "https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html#section-3.10",
+            "hard_pattern": "1{1}[:base64:]{3}",
+            "hs": 4,
+            "ss": 0,
+            "ls": 0
+        },
+        "LargeFixedSizeLead1": {
+            "spec": "https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html#section-3.10",
+            "hard_pattern": "2{1}[:base64:]{3}",
+            "hs": 4,
+            "ss": 0,
+            "ls": 1
+        },
+        "LargeFixedSizeLead2": {
+            "spec": "https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html#section-3.10",
+            "hard_pattern": "3{1}[:base64:]{3}",
+            "hs": 4,
+            "ss": 0,
+            "ls": 2
+        },
+        "SmallVariableSizeLead0": {
+            "spec": "https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html#section-3.11",
+            "hard_pattern": "4{1}[:base64:]{1}",
+            "soft_pattern": "(?P<size>[:base64:]{2})",
+            "hs": 2,
+            "ss": 2,
+            "fs": null,
+            "ls": 0
+        },
+        "SmallVariableSizeLead1": {
+            "spec": "https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html#section-3.11",
+            "hard_pattern": "5{1}[:base64:]{1}",
+            "soft_pattern": "(?P<size>[:base64:]{2})",
+            "hs": 2,
+            "ss": 2,
+            "fs": null,
+            "ls": 1
+        },
+        "SmallVariableSizeLead2": {
+            "spec": "https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html#section-3.11",
+            "hard_pattern": "6{1}[:base64:]{1}",
+            "soft_pattern": "(?P<size>[:base64:]{2})",
+            "hs": 2,
+            "ss": 2,
+            "fs": null,
+            "ls": 2
+        },
+        "LargeVariableSizeLead0": {
+            "spec": "https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html#section-3.12",
+            "hard_pattern": "7{1}[:base64:]{3}",
+            "soft_pattern": "(?P<size>[:base64:]{4})",
+            "hs": 4,
+            "ss": 4,
+            "fs": null,
+            "ls": 0
+        },
+        "LargeVariableSizeLead1": {
+            "spec": "https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html#section-3.12",
+            "hard_pattern": "8{1}[:base64:]{3}",
+            "soft_pattern": "(?P<size>[:base64:]{4})",
+            "hs": 4,
+            "ss": 4,
+            "fs": null,
+            "ls": 1
+        },
+        "LargeVariableSizeLead2": {
+            "spec": "https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html#section-3.12",
+            "hard_pattern": "9{1}[:base64:]{3}",
+            "soft_pattern": "(?P<size>[:base64:]{4})",
+            "hs": 4,
+            "ss": 4,
+            "fs": null,
+            "ls": 2
+        }
+    },
+    "Indexer": {
+        "IndexerTwoCharFixedSize": {
+            "spec": "https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html#section-3.18.1.1",
+            "hard_pattern": "[:alpha:]{1}",
+            "soft_pattern": "(?P<index>[:base64:]{1})",
+            "hs": 1,
+            "ss": 1,
+            "os": 0
+        },
+        "IndexerFourCharFixedSize": {
+            "spec": "https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html#section-3.18.1.1",
+            "hard_pattern": "0{1}[:base64:]{1}",
+            "soft_pattern": "(?P<index>[:base64:]{1})(?P<ondex>[:base64:]{1})",
+            "hs": 2,
+            "ss": 2,
+            "os": 1
+        },
+        "IndexerSixCharFixedSize": {
+            "spec": "https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html#section-3.18.1.1",
+            "hard_pattern": "2{1}[:base64:]{1}",
+            "soft_pattern": "(?P<index>[:base64:]{2})(?P<ondex>[:base64:]{2})",
+            "hs": 2,
+            "ss": 4,
+            "os": 2
+        },
+        "IndexerEightCharFixedSize": {
+            "spec": "https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html#section-3.18.1.1",
+            "hard_pattern": "3{1}[:base64:]{1}",
+            "soft_pattern": "(?P<index>[:base64:]{3})(?P<ondex>[:base64:]{3})",
+            "hs": 2,
+            "ss": 6,
+            "os": 3
+        }
+    },
+    "Counter": {
+        "SmallCounter": {
+            "spec": "https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html#section-3.13.1",
+            "hard_pattern": "-{1}[:alpha:]{1}",
+            "soft_pattern": "(?P<size>[:base64:]{2})",
+            "hs": 2,
+            "ss": 2,
+            "fs": 4
+        },
+        "LargeCounter": {
+            "spec": "https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html#section-3.13.2",
+            "hard_pattern": "-{1}0{1}[:base64:]{1}",
+            "soft_pattern": "(?P<size>[:base64:]{5})",
+            "hs": 3,
+            "ss": 5,
+            "fs": 8
+        },
+        "ProtocolVersion": {
+            "spec": "https://weboftrust.github.io/ietf-cesr/draft-ssmith-cesr.html#section-3.14",
+            "hard_pattern": "-{1}-{1}[:base64:]{3}",
+            "soft_pattern": "(?P<version>[:base64:]{3})",
+            "hs": 5,
+            "ss": 3,
+            "fs": 8
+        }
+    }
+}

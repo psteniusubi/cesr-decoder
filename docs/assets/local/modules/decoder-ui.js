@@ -1,6 +1,5 @@
 import { CesrDecoder } from "./cesr-decoder.js";
 import { Utf8 } from "./utf8.js";
-export { DecoderState } from "./cesr-decoder.js";
 
 function replacer(k, v) {
     if (v instanceof Uint8Array) {
@@ -52,6 +51,12 @@ function formatJsonHeader(code, json) {
 }
 
 export class DecoderUi extends CesrDecoder {
+    /**
+     * @param {CesrProtocol} protocol 
+     */
+    constructor(protocol) {
+        super(protocol);
+    }
     mapDefault(frame, group, code, offset, header) {
         const parent = (group?.value ?? frame.value);
         const details = document.createElement("details");
@@ -104,3 +109,5 @@ export class DecoderUi extends CesrDecoder {
         return section;
     }
 }
+
+export { DecoderState } from "./cesr-decoder.js";

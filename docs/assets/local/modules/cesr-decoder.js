@@ -1,9 +1,4 @@
 import { getCesrValue, getCesrFrame, CesrProtocol, CesrValue } from "../../common/modules/cesr.js";
-import { KeriMainProtocol } from "../../common/modules/keri-main.js";
-import { KeriIndexedProtocol } from "../../common/modules/keri-indexed.js";
-
-const main = new KeriMainProtocol();
-const indexed = new KeriIndexedProtocol();
 
 class Group {
     /** @type {Group} */
@@ -114,6 +109,15 @@ export class DecoderState {
 }
 
 export class CesrDecoder {
+    /** @type {CesrProtocol} */
+    #protocol;
+    /**
+     * @param {CesrProtocol} protocol 
+     */
+    constructor(protocol) {
+        if (protocol === null || protocol === undefined) throw new TypeError(`CesrDecoder(protocol): invalid argument`);
+        this.#protocol = protocol;
+    }
     /**
      * @param {Frame} frame 
      * @param {Group} group 
@@ -138,14 +142,6 @@ export class CesrDecoder {
         }
     }
     /**
-     * @returns {CesrProtocol}
-     */
-    getMainProtocol() { return main; }
-    /**
-     * @returns {CesrProtocol}
-     */
-    getIndexedProtocol() { return indexed; }
-    /**
      * @param {DecoderState} state
      * @param {Uint8Array} input
      */
@@ -155,7 +151,7 @@ export class CesrDecoder {
             if (slice.length == 0) break;
             const frame = state.currentFrame;
             const group = state.popGroup();
-            const protocol = group?.protocol ?? this.getMainProtocol();
+            const protocol = group?.protocol ?? this.#protocol;
             const getValue = frame.valueGetter;
             const code = getValue(protocol, slice);
             let length = code.length;
@@ -164,16 +160,14 @@ export class CesrDecoder {
                 case "JSON":
                     result = this.mapJsonFrame(frame, group, code, { start: state.start, length: length });
                     break;
-                case "-V":
-                case "-0V":
-                    length = code.header.length;
-                    result = this.mapCesrFrame(frame, group, code, { start: state.start, length: length });
-                    state.pushFrame(state.start + code.length, result);
-                    break;
                 default:
-                    if (Object.hasOwn(code.header, "count")) {
+                    if (protocol.isFrame(code.header)) {
+                        length = code.header.length;
+                        result = this.mapCesrFrame(frame, group, code, { start: state.start, length: length });
+                        state.pushFrame(state.start + code.length, result);
+                    } else if (protocol.isGroup(code.header)) {
                         result = this.mapCesrGroup(frame, group, code, { start: state.start, length: length });
-                        const p = KeriMainProtocol.isIndexGroup(code.header) ? this.getIndexedProtocol() : null;
+                        const p = protocol.hasContext(code.header) ? protocol.getContext(code.header) : null;
                         state.pushGroup(code.header.count, p, result);
                     } else {
                         result = this.mapCesrLeaf(frame, group, code, { start: state.start, length: length });

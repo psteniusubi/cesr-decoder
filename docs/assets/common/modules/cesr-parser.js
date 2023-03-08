@@ -4,7 +4,7 @@ import { Utf8 } from "../../local/modules/utf8.js";
 
 export class CesrValue {
     /** @type {CesrCodeTable} */
-    table;
+    get table() { return this.header.table; }
     /** @type {CesrCodeHeader} */
     header;
     /** @type {Uint8Array} */
@@ -13,7 +13,6 @@ export class CesrValue {
     get length() { return this.value.length; }
     /** @param {object} code */
     constructor(obj) {
-        this.table = obj.table;
         this.header = obj.header;
         this.value = obj.value;
     }
@@ -57,7 +56,6 @@ export function getCesrValue(protocol, input) {
     if (total != value.length) throw new UnknownCodeError(`getCesrValue ${protocol.name}`, JSON.stringify(code));
 
     return new CesrValue({
-        table: table,
         header: code,
         value: value,
     });
@@ -105,7 +103,6 @@ function getTextFrame(protocol, input) {
     if (size > input.length) throw new UnknownCodeError(`getTextFrame`, JSON.stringify(value.header));
 
     return new CesrValue({
-        table: value.table,
         header: value.header,
         value: input.slice(0, size)
     });
@@ -124,6 +121,7 @@ function getJsonFrame(input) {
 
     prefix = result[1];
     const code = new CesrCodeHeader({
+        table: undefined,
         value: prefix,
         selector: prefix.slice(6, 10), // JSON
         type: prefix.slice(0, 6), // KERI10
@@ -136,7 +134,6 @@ function getJsonFrame(input) {
     if (code.size > input.length) new UnknownCodeError(`getJsonFrame`, JSON.stringify(code));
 
     return new CesrValue({
-        table: undefined,
         header: code,
         value: input.slice(0, code.size)
     });
