@@ -9,7 +9,7 @@ This implementation is based on following specifications
 * https://trustoverip.github.io/tswg-acdc-specification/draft-ssmith-acdc.html
 * https://weboftrust.github.io/ietf-keri/draft-ssmith-keri.html
 
-The CESR tables used by this app are automatically generated from [keripy](https://github.com/WebOfTrust/keripy). See also [cesr-decoder](./cesr-decoder).
+The CESR tables used by this app are automatically generated from [keripy](https://github.com/WebOfTrust/keripy). See also [cesr-schema](./cesr-schema).
 
 ## Usage
 
