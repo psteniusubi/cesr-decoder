@@ -2,7 +2,7 @@ import json
 import re
 from os import (path)
 
-from keri.core.coring import (MatterCodex, SmallVarRawSizeCodex, LargeVarRawSizeCodex, NonTransCodex, DigCodex, NumCodex, BextCodex,
+from keri.core.coring import (MatterCodex, SmallVarRawSizeCodex, LargeVarRawSizeCodex, NonTransCodex, DigCodex, NumCodex, BextCodex, PreCodex,
                               IndexerCodex, IndexedSigCodex, IndexedCurrentSigCodex, IndexedBothSigCodex, CounterCodex, ProtocolGenusCodex, AltCounterCodex)
 from keri.core.parsing import (ColdCodex)
 from keri.core.coring import (Matter, Indexer, Counter)
@@ -22,10 +22,11 @@ with open("names.json", "w") as fp:
 special = {}
 codes = set()
 codex = {}
-for i in (MatterCodex, SmallVarRawSizeCodex, LargeVarRawSizeCodex, NonTransCodex, DigCodex, NumCodex, BextCodex, IndexerCodex, IndexedSigCodex, IndexedCurrentSigCodex, IndexedBothSigCodex, CounterCodex, ProtocolGenusCodex, AltCounterCodex, ColdCodex):
+for i in (MatterCodex, SmallVarRawSizeCodex, LargeVarRawSizeCodex, NonTransCodex, DigCodex, NumCodex, BextCodex, PreCodex, IndexerCodex, IndexedSigCodex, IndexedCurrentSigCodex, IndexedBothSigCodex, CounterCodex, ProtocolGenusCodex, AltCounterCodex, ColdCodex):
     o = {}
     for key, value in i().__dict__.items():
-        o[value] = key
+        if not value in o:
+            o[value] = key
         codes.add(value)
         assert key in names, f"key = {i.__name__}.{key}"
     name = i.__name__.replace("Codex", "")
