@@ -88,26 +88,69 @@
     </script>
 </head>
 
+<style type="text/css">
+    p#samples a::before {
+        content: "[";
+        text-decoration: initial;
+        color: initial;
+    }
+    p#samples a::after {
+        content: "]";
+        text-decoration: initial;
+        color: initial;
+    }
+    p#samples {
+        display: grid;
+    }
+    a.gleif {
+        grid-row-start: 1;
+    }
+    a.root {
+        grid-row-start: 2;
+    }
+    a.ext {
+        grid-row-start: 3;
+    }
+    a.qvi {
+        grid-row-start: 4;
+    }
+    a.le {
+        grid-row-start: 5;
+    }
+    a.person {
+        grid-row-start: 6;
+    }
+</style>
+
 <body>
     <header>
         <h1>cesr-decoder</h1>
         <p id="warning" style="color: red;">!!! This browser has rendering issues !!!</p>
-        <p>
-            [<a href="#">gleif-witness.cesr</a>]
-            &nbsp;
-            [<a href="#">root-gar-witness.cesr</a>]
-            &nbsp;
-            [<a href="#">external-gar-witness.cesr</a>]
-            &nbsp;
-            [<a href="#">qvi-vc.cesr</a>]
-            &nbsp;
-            [<a href="#">vlei-vc.cesr</a>]
-            &nbsp;
-            [<a href="#">ecr-vc.cesr</a>]
-            &nbsp;
-            [<a href="#">oorauth-vc.cesr</a>]
-            &nbsp;
-            [<a href="#">oor-vc.cesr</a>]
+        <p id="samples">
+            <a href="#" class="gleif">gleif-witness.cesr</a>
+            
+            <a href="#" class="root">My Root GAR Group-witness.cesr</a>
+            <a href="#" class="root">My Lead Root GAR-witness.cesr</a>
+            <a href="#" class="root">My Root GAR-witness.cesr</a>
+            
+            <a href="#" class="ext">My External GAR Group-witness.cesr</a>
+            <a href="#" class="ext">My Lead External GAR-witness.cesr</a>
+            <a href="#" class="ext">My External GAR-witness.cesr</a>
+            
+            <a href="#" class="qvi">My QAR Group-witness.cesr</a>
+            <a href="#" class="qvi">My Lead QAR-witness.cesr</a>
+            <a href="#" class="qvi">My QAR-witness.cesr</a>
+            <a href="#" class="qvi">qvi-vc.cesr</a>
+            <a href="#" class="qvi">oorauth-vc.cesr</a>
+
+            <a href="#" class="le">My LAR Group-witness.cesr</a>
+            <a href="#" class="le">My Lead LAR-witness.cesr</a>
+            <a href="#" class="le">My LAR-witness.cesr</a>
+            <a href="#" class="le">vlei-vc.cesr</a>
+
+            <a href="#" class="person">My Person-witness.cesr</a>
+            <a href="#" class="person">ecr-vc.cesr</a>
+            <a href="#" class="person">oor-vc.cesr</a>
         </p>
         <form>
             <div><input name="uri" type="text" /></div>
