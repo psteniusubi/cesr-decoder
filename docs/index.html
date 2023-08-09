@@ -73,7 +73,7 @@
                 status.classList.remove("error");
             });
 
-            form.elements["uri"].defaultValue = new URL("qvi-vc.cesr", location.href).toString();
+            form.elements["uri"].defaultValue = new URL("samples/qvi-vc.cesr", location.href).toString();
             form.dispatchEvent(new Event("reset"));
 
             document.querySelectorAll("header a").forEach(i => i.addEventListener("click", e => {
