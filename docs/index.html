@@ -78,7 +78,7 @@
 
             document.querySelectorAll("header a").forEach(i => i.addEventListener("click", e => {
                 e.preventDefault();
-                form.elements["uri"].value = e.target.innerText;
+                form.elements["uri"].value = `samples/${e.target.innerText}`;
                 form.elements["interleaved"].checked = true;
                 form.elements["fetch"].dispatchEvent(new MouseEvent("click"));
             }));
