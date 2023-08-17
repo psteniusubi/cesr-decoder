@@ -26,19 +26,19 @@ Top of the page has a number of links to previously recorded CESR streams. Click
 
 See https://github.com/GLEIF-IT/GLEIF-IT.github.io/tree/main/.well-known/keri/oobi
 
-* [GLEIF Root-witness.cesr](./docs/GLEIF%20Root-witness.cesr?raw=1)
+* [GLEIF Root-witness.cesr](./docs/samples/GLEIF%20Root-witness.cesr?raw=1)
     * `curl http://5.161.69.25:5623/oobi/EDP1vHcw_wc4M__Fj53-cJaBnZZASd-aMTaSyWEQ-PC2/witness`
-* [GLEIF External-witness.cesr](./docs/GLEIF%20External-witness.cesr?raw=1)
-    * `curl http://5.161.69.25:5623/oobi/EINmHd5g7iV-UldkkkKyBIH052bIyxZNBn9pq-zNrYoS/witness`
-* [GLEIF Internal-witness.cesr](./docs/GLEIF%20Internal-witness.cesr?raw=1)
-    * `curl http://5.161.69.25:5623/oobi/EFcrtYzHx11TElxDmEDx355zm7nJhbmdcIluw7UMbUIL/witness`
+* [GLEIF External-witness.cesr](./docs/samples/GLEIF%20External-witness.cesr?raw=1)
+    * `http://65.21.253.212:5623/oobi/EINmHd5g7iV-UldkkkKyBIH052bIyxZNBn9pq-zNrYoS/witness`
+* [GLEIF Internal-witness.cesr](./docs/samples/GLEIF%20Internal-witness.cesr?raw=1)
+    * `curl http://13.244.119.106:5623/oobi/EFcrtYzHx11TElxDmEDx355zm7nJhbmdcIluw7UMbUIL/witness`
 
 ### From development environment
 
 * [My Root GAR Group-witness.cesr](./docs/samples/My%20Root%20GAR%20Group-witness.cesr?raw=1)
     * Root AID 
     * `curl http://localhost:5642/oobi/EPgISkuC1ZS9kisgufpzQYvurZcuu2hpLRBT2ZJuOJ9z/witness/BIfjEfe_3R6Svl6M9qcek9XIK0E7_DAJXRnWF-_feU98`
-* [qvi-vc.cesr](./docs/qvi-vc.cesr?raw=1)
+* [qvi-vc.cesr](./docs/samples/qvi-vc.cesr?raw=1)
     * QVI credential issued by External Root to QVI
     * `kli vc export --said EOiLKDVNJj-2FCWypOKEwC_QcWmu5KIJ7Ux2qXVXSo3I --full`
 * And many more...
