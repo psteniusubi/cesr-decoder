@@ -22,33 +22,23 @@ The CESR tables used by this app are automatically generated from [keripy](https
 
 Top of the page has a number of links to previously recorded CESR streams. Click on the links to see the CESR stream decoded.
 
-### From public sources
+### From GLEIF Root public sources
 
-* [gleif-witness.cesr](./docs/gleif-witness.cesr?raw=1)
-    * GLEIF Root AID from https://gleif-it.github.io/.well-known/keri/oobi/EDP1vHcw_wc4M__Fj53-cJaBnZZASd-aMTaSyWEQ-PC2
+See https://github.com/GLEIF-IT/GLEIF-IT.github.io/tree/main/.well-known/keri/oobi
+
+* [GLEIF Root-witness.cesr](./docs/GLEIF%20Root-witness.cesr?raw=1)
     * `curl http://5.161.69.25:5623/oobi/EDP1vHcw_wc4M__Fj53-cJaBnZZASd-aMTaSyWEQ-PC2/witness`
+* [GLEIF External-witness.cesr](./docs/GLEIF%20External-witness.cesr?raw=1)
+    * `curl http://5.161.69.25:5623/oobi/EINmHd5g7iV-UldkkkKyBIH052bIyxZNBn9pq-zNrYoS/witness`
+* [GLEIF Internal-witness.cesr](./docs/GLEIF%20Internal-witness.cesr?raw=1)
+    * `curl http://5.161.69.25:5623/oobi/EFcrtYzHx11TElxDmEDx355zm7nJhbmdcIluw7UMbUIL/witness`
 
 ### From development environment
 
-* [root-gar-witness.cesr](./docs/root-gar-witness.cesr?raw=1)
+* [My Root GAR Group-witness.cesr](./docs/samples/My%20Root%20GAR%20Group-witness.cesr?raw=1)
     * Root AID 
-    * `curl http://localhost:5642/oobi/EOrY4RvOFobQABrEXfs-aeLm6g16SvTxuLXny7L7tRsr/witness/BBD-O2WpLl_Hj0H-SXQ304ih90p64myHJvONeACSfV3L`
-* [external-gar-witness.cesr](./docs/external-gar-witness.cesr?raw=1)
-    * External GAR AID 
-    * `curl http://localhost:5642/oobi/ECEGsrEr76cDQCdIUHbsO39sI_0WFTbbfdMB0O2LHLyD/witness/BBD-O2WpLl_Hj0H-SXQ304ih90p64myHJvONeACSfV3L`
+    * `curl http://localhost:5642/oobi/EPgISkuC1ZS9kisgufpzQYvurZcuu2hpLRBT2ZJuOJ9z/witness/BIfjEfe_3R6Svl6M9qcek9XIK0E7_DAJXRnWF-_feU98`
 * [qvi-vc.cesr](./docs/qvi-vc.cesr?raw=1)
     * QVI credential issued by External Root to QVI
-    * `kli vc export --said EN0PX0BxkYvdx9zdidmjEcswQFNIGFsv5RJ87XUcaui5 --full`
-* [vlei-vc.cesr](./docs/vlei-vc.cesr?raw=1)
-    * vLEI credential issued by QVI to Legal Entity
-    * `kli vc export --said EIZr1Ehn41dbGRMD-_B7gZsSZnZwMR3dffMzqEMvfzOr --full`
-* [ecr-vc.cesr](./docs/ecr-vc.cesr?raw=1)
-    * ECR credential issued by Legal Entity to individual
-    * `kli vc export --said EJmXcc0-50VW1gHgFgBf5_mlMGdcp12psvuUfxb2CsGK --full`
-* [oorauth-vc.cesr](./docs/oorauth-vc.cesr?raw=1)
-    * OOR authorization credential issued by Legal Entity to QVI
-    * `kli vc export --said ENc0tif7Pkdikih4zZWTIA3WFM_gIOxhVlkrMTMMIACt --full`
-* [oor-vc.cesr](./docs/oor-vc.cesr?raw=1)
-    * OOR credential issued by QVI to individual
-    * `kli vc export --said EKVOy7xgTvSl2YXqi3s-OfQPm5tIC3AlD8VMTdNaNVZ_ --full`
-
+    * `kli vc export --said EOiLKDVNJj-2FCWypOKEwC_QcWmu5KIJ7Ux2qXVXSo3I --full`
+* And many more...
