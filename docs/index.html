@@ -31,6 +31,7 @@
                 // console.log(value);
             });
 
+            // click Fetch button
             form.elements["fetch"].addEventListener("click", async e => {
                 e.preventDefault();
                 report.innerHTML = "";
@@ -50,6 +51,15 @@
                 form.dispatchEvent(new SubmitEvent("submit"));
             });
 
+            // click Enter in Uri text box
+            form.elements["uri"].addEventListener("keypress", e => {
+                if (e.key === "Enter") {
+                    e.preventDefault();
+                    form.elements["fetch"].dispatchEvent(new MouseEvent("click"));
+                }
+            });
+
+            // click Decode
             form.addEventListener("submit", async e => {
                 e.preventDefault();
                 report.innerHTML = "";
@@ -68,20 +78,45 @@
                 }
             });
 
+            // click Reset
             form.addEventListener("reset", e => {
+                form.reset();
                 report.innerHTML = "";
                 status.classList.remove("error");
             });
 
-            form.elements["uri"].defaultValue = new URL("samples/qvi-vc.cesr", location.href).toString();
-            form.dispatchEvent(new Event("reset"));
+            // fetch CESR from fragment
+            window.addEventListener("hashchange", async e => {
+                if (location.hash !== "") {
+                    form.elements["uri"].value = new URL(location.hash.substr(1), location.href).toString();
+                    form.elements["interleaved"].checked = true;
+                    let u = new URL(location.href);
+                    u.hash = "";
+                    history.replaceState(null, null, u.toString());
+                    form.elements["fetch"].dispatchEvent(new MouseEvent("click"));
+                } else {
+                    form.elements["uri"].value = "";
+                    form.dispatchEvent(new Event("reset"));
+                }
+            });
 
-            document.querySelectorAll("header a").forEach(i => i.addEventListener("click", e => {
-                e.preventDefault();
-                form.elements["uri"].value = `samples/${e.target.innerText}`;
-                form.elements["interleaved"].checked = true;
-                form.elements["fetch"].dispatchEvent(new MouseEvent("click"));
-            }));
+            // default valid of Uri text box
+            form.elements["uri"].defaultValue = new URL("samples/qvi-vc.cesr", location.href).toString();
+
+            // handle startup
+            if (location.hash !== "") {
+                window.dispatchEvent(new HashChangeEvent("hashchange"));
+            } else {
+                form.dispatchEvent(new Event("reset"));
+            }
+
+            // resolve links to CESR samples
+            document.querySelectorAll("#samples a").forEach(i => {
+                let samples = new URL("samples/", location);
+                samples.hash = "";
+                let href = new URL(i.innerText, samples);
+                i.setAttribute("href", `#${href.toString()}`);
+            });
         }
 
         setup();
@@ -94,29 +129,37 @@
         text-decoration: initial;
         color: initial;
     }
+
     p#samples a::after {
         content: "]";
         text-decoration: initial;
         color: initial;
     }
+
     p#samples {
         display: grid;
     }
+
     a.gleif {
         grid-row-start: 1;
     }
+
     a.root {
         grid-row-start: 2;
     }
+
     a.ext {
         grid-row-start: 3;
     }
+
     a.qvi {
         grid-row-start: 4;
     }
+
     a.le {
         grid-row-start: 5;
     }
+
     a.person {
         grid-row-start: 6;
     }
@@ -130,15 +173,15 @@
             <a href="#" class="gleif">GLEIF Root-witness.cesr</a>
             <a href="#" class="gleif">GLEIF External-witness.cesr</a>
             <a href="#" class="gleif">GLEIF Internal-witness.cesr</a>
-            
+
             <a href="#" class="root">My Root GAR Group-witness.cesr</a>
             <a href="#" class="root">My Lead Root GAR-witness.cesr</a>
             <a href="#" class="root">My Root GAR-witness.cesr</a>
-            
+
             <a href="#" class="ext">My External GAR Group-witness.cesr</a>
             <a href="#" class="ext">My Lead External GAR-witness.cesr</a>
             <a href="#" class="ext">My External GAR-witness.cesr</a>
-            
+
             <a href="#" class="qvi">My QAR Group-witness.cesr</a>
             <a href="#" class="qvi">My Lead QAR-witness.cesr</a>
             <a href="#" class="qvi">My QAR-witness.cesr</a>
