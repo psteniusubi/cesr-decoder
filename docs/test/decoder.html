@@ -30,7 +30,7 @@
 
         async function load() {
             const protocol_promise = CesrSchemaProtocol.load("Matter", "Counter");
-            const response = await fetch("../qvi-vc.cesr");
+            const response = await fetch("../samples/qvi-vc.cesr");
             await parsed;
             const output = document.getElementById("output");
             const input = new Uint8Array(await response.arrayBuffer());

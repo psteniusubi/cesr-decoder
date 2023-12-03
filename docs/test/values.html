@@ -12,10 +12,10 @@
     <script async type="module">
         import { parsed } from "../assets/local/modules/document-promises.js";
         import { getCesrValue, getCesrFrame } from "../assets/common/modules/cesr.js";
-        import { KeriMainProtocol } from "../assets/common/modules/keri-main.js";
+        import { CesrSchemaProtocol } from "../assets/common/modules/cesr-schema.js";
         import { Utf8 } from "../assets/local/modules/utf8.js";
 
-        const main = new KeriMainProtocol();
+        const main = await CesrSchemaProtocol.load("Matter", "Counter");
 
         function replacer(k, v) {
             if (v instanceof Uint8Array) {

@@ -66,7 +66,7 @@ export class CesrCodeHeader {
 /**
  * Map selector string of 1 or 2 chars to code table {@link CesrCodeTable}
  * Abstract class
- * Implementations {@link KeriMainProtocol} and {@link KeriIndexedProtocol}
+ * Implementation {@link CesrSchemaProtocol}
  */
 export class CesrProtocol {
     /** @type {string} */
@@ -129,7 +129,7 @@ export class CesrProtocol {
 /**
  * Split selector string into selector specific code header parts
  * Abstract class
- * Many implementations
+ * Implementation {@link CesrSchemaCodeTable}
  */
 export class CesrCodeTable {
     #protocol;
